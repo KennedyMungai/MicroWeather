@@ -37,6 +37,7 @@ public class WeatherReportAggregator : IWeatherReportAggregator
         var tempData = await FetchTemperatureData(httpClient, zip, days);
         decimal avgHigh = tempData.Average(t => t.TempHighF);
         decimal avgLow = tempData.Average(t => t.TempLowF);
+        _logger.LogInformation($"zip: {zip} over the last {days} days has average high of: {avgHigh} and average low of: {avgLow}");
     }
 
     private static decimal GetTotalRain(List<PrecipitationModel> precipData)
