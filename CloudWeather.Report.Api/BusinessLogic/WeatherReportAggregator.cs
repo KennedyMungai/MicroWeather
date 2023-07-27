@@ -26,6 +26,18 @@ public class WeatherReportAggregator : IWeatherReportAggregator
 
     public async Task<WeatherReport> BuildWeeklyReport(string zip, int days)
     {
+        var httpClient = _http.CreateClient();
+        var precipData = await FetchPrecipitationData(httpClient, zip, days);
+        var tempClient = await FetchTemperatureData(httpClient, zip, days);
+    }
+
+    private Task FetchPrecipitationData(HttpClient httpClient, string zip, int days)
+    {
+        throw new NotImplementedException();
+    }
+
+    private Task FetchTemperatureData(HttpClient httpClient, string zip, int days)
+    {
         throw new NotImplementedException();
     }
 }
