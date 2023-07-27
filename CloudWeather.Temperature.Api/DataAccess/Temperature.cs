@@ -1,6 +1,6 @@
 namespace CloudWeather.Temperature.Api.DataAccess;
 
-public class Temperature
+public class TemperatureModel
 {
     public Guid Id { get; set; }
     public DateTime CreatedOn { get; set; }

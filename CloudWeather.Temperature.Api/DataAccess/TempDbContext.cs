@@ -9,5 +9,5 @@ public class TempDbContext : DbContext
 
     }
 
-    public DbSet<Temperature> Temperature { get; set; }
+    public DbSet<TemperatureModel> Temperature { get; set; }
 }
