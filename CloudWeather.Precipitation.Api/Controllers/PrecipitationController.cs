@@ -8,7 +8,7 @@ namespace CloudWeather.Precipitation.Api.Controllers;
 [Route("api/[controller]")]
 public class PrecipitationController : ControllerBase
 {
-    [HttpGet("{zip}")]
+    [HttpGet("observation/{zip}")]
     public async Task<IActionResult> GetObservation(string zip, [FromQuery] int? days, PrecipDbContext db)
     {
         if (days is null)
@@ -22,5 +22,14 @@ public class PrecipitationController : ControllerBase
                             .ToListAsync();
 
         return Ok(result);
+    }
+
+    [HttpPost("observation")]
+    public async Task<IActionResult> PostObservation(PrecipitationModel precipitation, PrecipDbContext db)
+    {
+        precipitation.CreatedOn = precipitation.CreatedOn.ToUniversalTime();
+        await db.Precipitation.AddAsync(precipitation);
+        await db.SaveChangesAsync();
+        return Ok();
     }
 }
