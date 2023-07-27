@@ -32,7 +32,7 @@ public class WeatherReportAggregator : IWeatherReportAggregator
         var tempClient = await FetchTemperatureData(httpClient, zip, days);
     }
 
-    private async Task FetchPrecipitationData(HttpClient httpClient, string zip, int days)
+    private async Task<List<PrecipitationModel>> FetchPrecipitationData(HttpClient httpClient, string zip, int days)
     {
         throw new NotImplementedException();
     }
