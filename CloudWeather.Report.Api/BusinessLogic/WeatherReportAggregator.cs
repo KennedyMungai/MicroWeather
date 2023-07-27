@@ -1,5 +1,6 @@
 using CloudWeather.Report.Api.Config;
 using CloudWeather.Report.Api.DataAccess;
+using CloudWeather.Report.Api.Models;
 
 namespace CloudWeather.Report.Api.BusinessLogic;
 
@@ -36,7 +37,7 @@ public class WeatherReportAggregator : IWeatherReportAggregator
         throw new NotImplementedException();
     }
 
-    private async Task FetchTemperatureData(HttpClient httpClient, string zip, int days)
+    private async Task<List<TemperatureModel>> FetchTemperatureData(HttpClient httpClient, string zip, int days)
     {
         throw new NotImplementedException();
     }
