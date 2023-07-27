@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  cloud-weather-mysql:
+    image: mysql
+    environment:
+      MYSQL_PASSWORD: Password1!
+      MYSQL_DATABASE: PrecipitationDb
+      MYSQL_USER: kennedymungai
+    ports:
+      - 3310:3306
+      
