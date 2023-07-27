@@ -39,7 +39,12 @@ public class WeatherReportAggregator : IWeatherReportAggregator
 
     private async Task<List<TemperatureModel>> FetchTemperatureData(HttpClient httpClient, string zip, int days)
     {
-        throw new NotImplementedException();
+        var endpoint = BuildTemperatureServiceEndpoint(zip, days);
+        var temperatureRecords = await httpClient.GetAsync(endpoint);
+        var temperatureData = await temperatureRecords
+                                        .Content
+                                        .ReadFromJsonAsync<List<TemperatureModel>>();
+        return temperatureData ?? new List<TemperatureModel>();
     }
 }
 
