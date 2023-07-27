@@ -26,7 +26,7 @@ public class WeatherReportAggregator : IWeatherReportAggregator
     }
 
 
-    public async Task<WeatherReport> BuildWeeklyReport(string zip, int days)
+    public async Task<WeatherReport> BuildReport(string zip, int days)
     {
         var httpClient = _http.CreateClient();
         var precipData = await FetchPrecipitationData(httpClient, zip, days);
@@ -132,5 +132,5 @@ public interface IWeatherReportAggregator
     /// <param name="zip">The location</param>
     /// <param name="days">The number of days to include in the report</param>
     /// <returns></returns>
-    public Task<WeatherReport> BuildWeeklyReport(string zip, int days);
+    public Task<WeatherReport> BuildReport(string zip, int days);
 }
