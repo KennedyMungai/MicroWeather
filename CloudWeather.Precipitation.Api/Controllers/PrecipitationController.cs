@@ -7,7 +7,7 @@ namespace CloudWeather.Precipitation.Api.Controllers;
 public class PrecipitationController : ControllerBase
 {
     [HttpGet("{zip}")]
-    public IActionResult GetObservation(string zip)
+    public IActionResult GetObservation(string zip, [FromQuery] int? days)
     {
         return Ok(zip);
     }
