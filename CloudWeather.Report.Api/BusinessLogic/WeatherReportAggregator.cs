@@ -30,7 +30,27 @@ public class WeatherReportAggregator : IWeatherReportAggregator
     {
         var httpClient = _http.CreateClient();
         var precipData = await FetchPrecipitationData(httpClient, zip, days);
+        decimal totalSnow = GetTotalSnow(precipData);
+        decimal totalRain = GetTotalRain(precipData);
+
         var tempClient = await FetchTemperatureData(httpClient, zip, days);
+    }
+
+    private static decimal GetTotalRain(List<PrecipitationModel> precipData)
+    {
+        var totalRain = precipData
+                            .Where(p => p.WeatherType == 'rain')
+                            .Sum(p => p.AmountInches);
+        return Math.Ceiling(totalRain);
+    }
+
+
+    private static decimal GetTotalSnow(List<PrecipitationModel> precipData)
+    {
+        var totalSnow = precipData
+                            .Where(p => p.WeatherType == 'snow')
+                            .Sum(p => p.AmountInches);
+        return Math.Ceiling(totalSnow);
     }
 
     private async Task<List<PrecipitationModel>> FetchPrecipitationData(HttpClient httpClient, string zip, int days)
