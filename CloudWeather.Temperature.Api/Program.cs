@@ -12,8 +12,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<TempDbContext>(options =>
 {
     options.UseMySql(
-        builder.Configuration.GetConnectionString("TempDb"),
-        ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("TempDb"))
+        builder.Configuration.GetConnectionString("TemperatureDb"),
+        ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("TemperatureDb"))
     );
 });
 
