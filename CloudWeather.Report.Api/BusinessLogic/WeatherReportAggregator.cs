@@ -9,6 +9,20 @@ public class WeatherReportAggregator : IWeatherReportAggregator
     private readonly WeatherDataConfig _weatherDataConfig;
     private readonly WeatherReportDbContext _context;
 
+    public WeatherReportAggregator(
+        ILogger<WeatherReportAggregator> logger,
+        WeatherDataConfig weatherDataConfig,
+        WeatherReportDbContext context,
+        IHttpClientFactory http
+        )
+    {
+        _logger = logger;
+        _weatherDataConfig = weatherDataConfig;
+        _context = context;
+        _http = http;
+    }
+
+
     public Task<WeatherReport> BuildWeeklyReport(string zip, int days)
     {
         throw new NotImplementedException();
