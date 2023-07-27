@@ -4,6 +4,11 @@ namespace CloudWeather.Report.Api.BusinessLogic;
 
 public class WeatherReportAggregator : IWeatherReportAggregator
 {
+    private readonly IHttpClientFactory _http;
+    private readonly ILogger<WeatherReportAggregator> _logger;
+    private readonly WeatherDataConfig _weatherDataConfig;
+    private readonly WeatherReportDbContext _context;
+
     public Task<WeatherReport> BuildWeeklyReport(string zip, int days)
     {
         throw new NotImplementedException();
