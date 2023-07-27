@@ -18,7 +18,7 @@ services:
       MYSQL_DATABASE: WeatherReportDb
       MYSQL_USER: kennedymungai
     ports:
-      - 3310:3306
+      - 3311:3306
   TemperatureDb:
     image: mysql
     environment:
@@ -27,5 +27,5 @@ services:
       MYSQL_DATABASE: TemperatureDb
       MYSQL_USER: kennedymungai
     ports:
-      - 3310:3306
+      - 3312:3306
       
