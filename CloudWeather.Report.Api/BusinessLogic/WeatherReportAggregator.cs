@@ -53,9 +53,14 @@ public class WeatherReportAggregator : IWeatherReportAggregator
     {
         var endpoint = BuildTemperatureServiceEndpoint(zip, days);
         var temperatureRecords = await httpClient.GetAsync(endpoint);
+        var jsonSerializerOptions = new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true,
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+        };
         var temperatureData = await temperatureRecords
                                         .Content
-                                        .ReadFromJsonAsync<List<TemperatureModel>>();
+                                        .ReadFromJsonAsync<List<TemperatureModel>>(jsonSerializerOptions);
         return temperatureData ?? new List<TemperatureModel>();
     }
 
