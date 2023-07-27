@@ -3,6 +3,7 @@ using System;
 using CloudWeather.Temperature.Api.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CloudWeather.Temperature.Api.DataAccess.Migrations
 {
     [DbContext(typeof(TempDbContext))]
-    partial class TempDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230727112948_UpdatedModelName")]
+    partial class UpdatedModelName
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
