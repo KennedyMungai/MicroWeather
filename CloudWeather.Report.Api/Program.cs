@@ -1,3 +1,5 @@
+using CloudWeather.Report.Api.BusinessLogic;
+using CloudWeather.Report.Api.Config;
 using CloudWeather.Report.Api.DataAccess;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,6 +18,10 @@ builder.Services.AddDbContext<WeatherReportDbContext>(options =>
         ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("WeatherReportDb"))
     );
 });
+builder.Services.AddHttpClient();
+builder.Services.AddOptions();
+builder.Services.AddTransient<IWeatherReportAggregator, WeatherReportAggregator>();
+builder.Services.Configure<WeatherDataConfig>(builder.Configuration.GetSection("WeatherDataConfig"));
 
 var app = builder.Build();
 
