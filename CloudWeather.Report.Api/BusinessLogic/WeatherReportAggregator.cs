@@ -1,3 +1,4 @@
+using CloudWeather.Report.Api.Config;
 using CloudWeather.Report.Api.DataAccess;
 
 namespace CloudWeather.Report.Api.BusinessLogic;
