@@ -7,16 +7,21 @@ namespace CloudWeather.Precipitation.Api.Controllers;
 [Route("api/[controller]")]
 public class PrecipitationController : ControllerBase
 {
-    private readonly PrecipDbContext _context;
-
-    public PrecipitationController(PrecipDbContext context)
-    {
-        _context = context;
-    }
-
     [HttpGet("{zip}")]
-    public IActionResult GetObservation(string zip, [FromQuery] int? days)
+    public IActionResult GetObservation(string zip, [FromQuery] int? days, PrecipDbContext db)
     {
-        return Ok(zip);
+        if (days is null)
+        {
+            return BadRequest("Days is required");
+        }
+
+        var startDate = DateTime.UtcNow.AddDays(days.GetValueOrDefault(7));
+        var result = db.Precipitation
+                            .Where(p => p.ZipCode == zip)
+                            .ToList();
+
+
+
+        return Ok(result);
     }
 }
