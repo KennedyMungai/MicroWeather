@@ -1,3 +1,6 @@
+using CloudWeather.Temperature.Api.DataAccess;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,6 +9,13 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddDbContext<TempDbContext>(options =>
+{
+    options.UseMySql(
+        builder.Configuration.GetConnectionString("TempDb"),
+        ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("TempDb"))
+    );
+});
 
 var app = builder.Build();
 
