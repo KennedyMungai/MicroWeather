@@ -9,5 +9,5 @@ public class PrecipDbContext : DbContext
 
     }
 
-    public DbSet<Precipitation> Precipitation { get; set; }
+    public DbSet<PrecipitationModel> Precipitation { get; set; }
 }

@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CloudWeather.Precipitation.Api.DataAccess;
 
-public class Precipitation
+public class PrecipitationModel
 {
     [Key]
     public Guid Id { get; set; }
