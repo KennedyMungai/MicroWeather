@@ -49,6 +49,9 @@ public class WeatherReportAggregator : IWeatherReportAggregator
             CreatedOn = DateTime.UtcNow
         };
 
+        _context.Add(weatherReport);
+        await _context.SaveChangesAsync();
+
         return weatherReport;
     }
 
