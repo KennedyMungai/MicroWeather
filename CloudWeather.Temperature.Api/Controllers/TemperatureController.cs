@@ -23,4 +23,14 @@ public class TemperatureController : ControllerBase
 
         return Ok(result);
     }
+
+    [HttpPost("observation")]
+    public async Task<IActionResult> AddTemperatureEntry(TemperatureModel temperature, TempDbContext db)
+    {
+        await db.Temperature.AddAsync(temperature);
+        await db.SaveChangesAsync();
+
+        return Ok();
+    }
+
 }
