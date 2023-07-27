@@ -49,6 +49,7 @@ public class WeatherReportAggregator : IWeatherReportAggregator
             CreatedOn = DateTime.UtcNow
         };
 
+        // TODO: Add some caching to avoid unnecessary database requests
         _context.Add(weatherReport);
         await _context.SaveChangesAsync();
 
