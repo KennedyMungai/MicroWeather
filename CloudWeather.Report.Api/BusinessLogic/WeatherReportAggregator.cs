@@ -16,8 +16,8 @@ public interface IWeatherReportAggregator
     /// Build and returns a weather report
     /// Persists weekly report data
     /// </summary>
-    /// <param name="zip"></param>
-    /// <param name="days"></param>
+    /// <param name="zip">The location</param>
+    /// <param name="days">The number of days to include in the report</param>
     /// <returns></returns>
     public Task<WeatherReport> BuildWeeklyReport(string zip, int days);
 }
