@@ -35,15 +35,27 @@ public class WeatherReportAggregator : IWeatherReportAggregator
         _logger.LogInformation($"zip: {zip} over the last {days} days has total snow levels of: {totalSnow} and total rain levels of : {totalRain}");
 
         var tempData = await FetchTemperatureData(httpClient, zip, days);
-        decimal avgHigh = tempData.Average(t => t.TempHighF);
-        decimal avgLow = tempData.Average(t => t.TempLowF);
-        _logger.LogInformation($"zip: {zip} over the last {days} days has average high of: {avgHigh} and average low of: {avgLow}");
+        decimal avgTempHigh = tempData.Average(t => t.TempHighF);
+        decimal avgTempLow = tempData.Average(t => t.TempLowF);
+        _logger.LogInformation($"zip: {zip} over the last {days} days has average high of: {avgTempHigh} and average low of: {avgTempLow}");
+
+        var weatherReport = new WeatherReport
+        {
+            AverageHighF = Math.Ceiling(avgTempHigh),
+            AverageLowF = Math.Ceiling(avgTempLow),
+            RainfallTotalInches = totalRain,
+            SnowTotalInches = totalSnow,
+            ZipCode = zip,
+            CreatedOn = DateTime.UtcNow
+        };
+
+        return weatherReport;
     }
 
     private static decimal GetTotalRain(List<PrecipitationModel> precipData)
     {
         var totalRain = precipData
-                            .Where(p => p.WeatherType == 'rain')
+                            .Where(p => p.WeatherType == "rain")
                             .Sum(p => p.AmountInches);
         return Math.Ceiling(totalRain);
     }
@@ -52,7 +64,7 @@ public class WeatherReportAggregator : IWeatherReportAggregator
     private static decimal GetTotalSnow(List<PrecipitationModel> precipData)
     {
         var totalSnow = precipData
-                            .Where(p => p.WeatherType == 'snow')
+                            .Where(p => p.WeatherType == "snow")
                             .Sum(p => p.AmountInches);
         return Math.Ceiling(totalSnow);
     }
