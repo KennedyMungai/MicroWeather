@@ -34,7 +34,9 @@ public class WeatherReportAggregator : IWeatherReportAggregator
         decimal totalRain = GetTotalRain(precipData);
         _logger.LogInformation($"zip: {zip} over the last {days} days has total snow levels of: {totalSnow} and total rain levels of : {totalRain}");
 
-        var tempClient = await FetchTemperatureData(httpClient, zip, days);
+        var tempData = await FetchTemperatureData(httpClient, zip, days);
+        decimal avgHigh = tempData.Average(t => t.TempHighF);
+        decimal avgLow = tempData.Average(t => t.TempLowF);
     }
 
     private static decimal GetTotalRain(List<PrecipitationModel> precipData)
