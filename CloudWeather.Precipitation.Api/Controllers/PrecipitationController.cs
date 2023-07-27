@@ -6,7 +6,7 @@ namespace CloudWeather.Precipitation.Api.Controllers;
 [Route("api/[controller]")]
 public class PrecipitationController : ControllerBase
 {
-    [HttpGet("{zip:string}")]
+    [HttpGet("{zip}")]
     public IActionResult GetObservation(string zip)
     {
         return Ok(zip);
