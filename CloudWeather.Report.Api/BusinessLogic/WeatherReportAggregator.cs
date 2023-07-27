@@ -53,7 +53,16 @@ public class WeatherReportAggregator : IWeatherReportAggregator
         var tempServiceHost = _weatherDataConfig.TempDataHost;
         var tempServicePort = _weatherDataConfig.TempDataPort;
 
-        return $"{tempServiceProtocol}://{tempServiceHost}:{tempServicePort}/api/temperature/{zip}/{days}";
+        return $"{tempServiceProtocol}://{tempServiceHost}:{tempServicePort}/api/temperature/observation/{zip}/{days}";
+    }
+
+    private string? BuildPrecipitationServiceEndpoint(string zip, int days)
+    {
+        var precipServiceProtocol = _weatherDataConfig.PrecipDataProtocol;
+        var precipServiceHost = _weatherDataConfig.PrecipDataHost;
+        var precipServicePort = _weatherDataConfig.PrecipDataPort;
+
+        return $"{precipServiceProtocol}://{precipServiceHost}:{precipServicePort}/api/precipitation/observation/{zip}/{days}";
     }
 }
 
