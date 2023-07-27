@@ -46,6 +46,15 @@ public class WeatherReportAggregator : IWeatherReportAggregator
                                         .ReadFromJsonAsync<List<TemperatureModel>>();
         return temperatureData ?? new List<TemperatureModel>();
     }
+
+    private string? BuildTemperatureServiceEndpoint(string zip, int days)
+    {
+        var tempServiceProtocol = _weatherDataConfig.TempDataProtocol;
+        var tempServiceHost = _weatherDataConfig.TempDataHost;
+        var tempServicePort = _weatherDataConfig.TempDataPort;
+
+        return $"{tempServiceProtocol}://{tempServiceHost}:{tempServicePort}/api/temperature/{zip}/{days}";
+    }
 }
 
 public interface IWeatherReportAggregator
