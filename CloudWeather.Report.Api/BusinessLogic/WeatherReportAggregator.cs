@@ -24,7 +24,7 @@ public class WeatherReportAggregator : IWeatherReportAggregator
     }
 
 
-    public Task<WeatherReport> BuildWeeklyReport(string zip, int days)
+    public async Task<WeatherReport> BuildWeeklyReport(string zip, int days)
     {
         throw new NotImplementedException();
     }
