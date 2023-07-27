@@ -4,6 +4,7 @@ services:
   cloud-weather-mysql:
     image: mysql
     environment:
+      MYSQL_ROOT_PASSWORD: Password1!
       MYSQL_PASSWORD: Password1!
       MYSQL_DATABASE: PrecipitationDb
       MYSQL_USER: kennedymungai
