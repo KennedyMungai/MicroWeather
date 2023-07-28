@@ -1,6 +1,6 @@
 namespace CloudWeather.DataLoader.Console.Models;
 
-public class PrecipitationModel
+internal class PrecipitationModel
 {
     public DateTime CreatedOn { get; set; }
     public decimal AmountByInches { get; set; }
