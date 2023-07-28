@@ -2,4 +2,5 @@
 
 IConfiguration configuration = new ConfigurationBuilder()
                                 .AddJsonFile("appsettings.json")
+                                .AddEnvironmentVariables()
                                 .Build();
