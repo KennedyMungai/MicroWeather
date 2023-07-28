@@ -23,3 +23,11 @@ var zipCodes = new List<string>
     "32808",
     "19717"
 };
+
+Console.WriteLine("Starting Data Load");
+
+var temperatureHttpClient = new HttpClient();
+temperatureHttpClient.BaseAddress = new Uri($"http://{tempServiceHost}:{tempServicePort}");
+
+var precipitationHttpClient = new HttpClient();
+precipitationHttpClient.BaseAddress = new Uri($"http://{precipServiceHost}:{precipServicePort}");
