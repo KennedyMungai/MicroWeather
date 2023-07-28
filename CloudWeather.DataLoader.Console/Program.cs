@@ -14,3 +14,12 @@ var tempServicePort = tempServiceConfig["Port"];
 var precipServiceConfig = servicesConfig.GetSection("Precipitation");
 var precipServiceHost = precipServiceConfig["Host"];
 var precipServicePort = precipServiceConfig["Port"];
+
+var zipCodes = new List<string>
+{
+    "73026",
+    "68104",
+    "04401",
+    "32808",
+    "19717"
+};
