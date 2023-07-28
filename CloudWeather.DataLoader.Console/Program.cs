@@ -106,7 +106,39 @@ void PostPrecip(int lowTemp, string zip, DateTime day, HttpClient precipitationH
     }
 }
 
-List<int> PostTemp(string zip, DateTime day, HttpClient temperatureHttpClient)
+List<int> PostTemp(string zip, DateTime day, HttpClient httpClient)
 {
-    throw new NotImplementedException();
+    var rand = new Random();
+    var t1 = rand.Next(0, 100);
+    var t2 = rand.Next(0, 100);
+    var hiloTemps = new List<int> { t1, t2 };
+    hiloTemps.Sort();
+
+    var temperatureObservation = new TemperatureModel
+    {
+        TempLowF = hiloTemps[0],
+        TempHighF = hiloTemps[1],
+        ZipCode = zip,
+        CreatedOn = day
+    };
+
+    var tempResponse = httpClient
+                        .PostAsJsonAsync("observation", temperatureObservation)
+                        .Result;
+
+    if (tempResponse.IsSuccessStatusCode)
+    {
+        Console.WriteLine(
+            $"Posted Temperature: Date: {day:d} " +
+            $"Zip: {zip} " +
+            $"Low: {hiloTemps[0]} " +
+            $"High: {hiloTemps[1]}"
+        );
+    }
+    else
+    {
+        Console.WriteLine(tempResponse.ToString());
+    }
+
+    return hiloTemps;
 }
