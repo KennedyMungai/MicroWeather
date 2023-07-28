@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using System.Net.Http.Json;
+using CloudWeather.DataLoader.Console.Models;
+using Microsoft.Extensions.Configuration;
 
 IConfiguration configuration = new ConfigurationBuilder()
                                 .AddJsonFile("appsettings.json")
@@ -44,4 +46,67 @@ foreach (var zip in zipCodes)
         var temps = PostTemp(zip, day, temperatureHttpClient);
         PostPrecip(temps[0], zip, day, precipitationHttpClient);
     }
+}
+
+void PostPrecip(int lowTemp, string zip, DateTime day, HttpClient precipitationHttpClient)
+{
+    var rand = new Random();
+    var isPrecip = rand.Next(2) < 1;
+
+    PrecipitationModel precipitation;
+
+    if (isPrecip)
+    {
+        var precipInches = rand.Next(1, 16);
+
+        if (lowTemp < 32)
+        {
+            precipitation = new PrecipitationModel
+            {
+                AmountByInches = precipInches,
+                WeatherType = "snow",
+                ZipCode = zip,
+                CreatedOn = day
+            };
+        }
+        else
+        {
+            precipitation = new PrecipitationModel
+            {
+                AmountByInches = precipInches,
+                WeatherType = "rain",
+                ZipCode = zip,
+                CreatedOn = day
+            };
+        }
+    }
+    else
+    {
+        precipitation = new PrecipitationModel
+        {
+            AmountByInches = 0,
+            WeatherType = "none",
+            ZipCode = zip,
+            CreatedOn = day
+        };
+    }
+
+    var precipResponse = precipitationHttpClient
+                            .PostAsJsonAsync("observation", precipitation)
+                            .Result;
+
+    if (precipResponse.IsSuccessStatusCode)
+    {
+        Console.WriteLine(
+            $"Posted Precipitation: Date: {day:d} " +
+            $"Zip: {zip} " +
+            $"Type: {precipitation.WeatherType} " +
+            $"Amount (in.): {precipitation.AmountByInches}"
+        );
+    }
+}
+
+List<int> PostTemp(string zip, DateTime day, HttpClient temperatureHttpClient)
+{
+    throw new NotImplementedException();
 }
